@@ -1,0 +1,11 @@
+language: multi
+dependencies: []
+url_to_dependency_map: []
+exclude_files:
+  - ".git/"
+  - ".gitignore"
+  - ".gitmodules"
+  - cf_spec/
+  - log/
+  - src/
+  - multi-*v*.zip
