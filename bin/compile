@@ -15,6 +15,8 @@ function indent() {
 
 unset GIT_DIR
 
+echo "-----> Compiling Multi-Pack buildpack"
+
 ln -s /tmp/ /tmp/staged 2>/dev/null || true
 
 for BUILDPACK in $(grep -v ^# $1/.buildpacks); do
