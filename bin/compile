@@ -40,6 +40,9 @@ for _buildpack in "${__service_buildpacks[@]})"; do
   url=${_buildpack%#*}
   branch=${_buildpack#*#}
 
+  echo "url = $url" | indent
+  echo "branch = $branch" | indent
+
   if [ "$branch" == "$url" ]; then
     branch=""
   fi
