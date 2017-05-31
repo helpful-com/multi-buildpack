@@ -30,7 +30,9 @@ if [[ -f $__service_buildpack_file ]]; then
 	echo "Buildpack found: $buildpack" | indent
     done
 else
-    echo "No service buildpacks found! Exiting..."
+    echo "ERROR: No service buildpacks found in $__project_home! Exiting..." | indent
+    ls -1 $__project_home
+    ls -1 $__service_buildpack_file
     exit 1
 fi
 
