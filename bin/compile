@@ -22,6 +22,7 @@ ln -s /tmp/ /tmp/staged 2>/dev/null || true
 __project_home=$1
 __service_buildpacks=""
 __service_buildpack_file=${__project_home}/ci/hooks/cf-build-packs
+
 if [[ -f $__service_buildpack_file ]]; then
     echo "Found service buildpack files at: $__service_buildpack_file" | indent
     declare -a __service_buildpacks=(`cat $__service_buildpack_file | grep -v ^#`)
@@ -40,6 +41,7 @@ for _buildpack in "${__service_buildpacks[@]})"; do
   url=${_buildpack%#*}
   branch=${_buildpack#*#}
 
+  echo "working dir = $dir" | indent
   echo "url = $url" | indent
   echo "branch = $branch" | indent
 
@@ -51,14 +53,17 @@ for _buildpack in "${__service_buildpacks[@]})"; do
     echo "=====> Downloading Buildpack: $url"
 
     if [[ "$url" =~ \.tgz$ ]]; then
+      echo "Downloading tgz file from $url" | indent
       curl -s "$url" | tar xvz -C "$dir" >/dev/null 2>&1
     else
+      echo "Cloning git repository from $url" | indent
       git clone $url $dir >/dev/null 2>&1
       if [ -f "$dir/.gitmodules" ]; then
         echo "=====> Detected git submodules. Initializing..."
         (cd $dir && git submodule update --init --recursive)
       fi
     fi
+    
     cd $dir
 
     if [ "$branch" != "" ]; then
