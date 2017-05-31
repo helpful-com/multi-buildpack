@@ -21,7 +21,15 @@ ln -s /tmp/ /tmp/staged 2>/dev/null || true
 
 __project_home=$1
 __service_buildpacks=""
-__service_buildpack_file=${__project_home}/ci/hooks/cf-build-packs
+__service_buildpack_dir=${__project_home}/ci/hooks
+
+if [[ -d $__service_buildpack_dir ]]; then
+    echo "Found service buildpack dir at: $__service_buildpack_dir" | indent
+else
+    __service_buildpack_dir=.
+fi
+
+__service_buildpack_file=$__service_buildpack_dir/cf-build-packs
 
 if [[ -f $__service_buildpack_file ]]; then
     echo "Found service buildpack files at: $__service_buildpack_file" | indent
