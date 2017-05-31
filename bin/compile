@@ -35,7 +35,7 @@ else
 fi
 
 
-for _buildpack in "${__service_buildpacks[@]})"; do
+for _buildpack in "${__service_buildpacks[@]}"; do
   dir="$(mktemp -d -t buildpackXXXXX)"
 
   url=${_buildpack%#*}
